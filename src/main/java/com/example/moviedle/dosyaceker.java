@@ -9,15 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class dosyaceker {
-
-
-
     private   List<String> eleman = new ArrayList<String>();
-
-    public  List<String> getEleman() {
-        return eleman;
-    }
-
     public dosyaceker() throws IOException {
         {
             String[] elemanlar = new String[250*8];
@@ -41,6 +33,10 @@ public class dosyaceker {
             }
         }
     }
+    public  List<String> getEleman() {
+        return eleman;
+    }
+
     public int chooser(){
         int chosen;
         chosen = (int)(Math.random()*(250-0+1)+0);
@@ -61,10 +57,6 @@ public class dosyaceker {
             }
             i=i+7;
         }
-
         return returner;
     }
-
-
-
     }
