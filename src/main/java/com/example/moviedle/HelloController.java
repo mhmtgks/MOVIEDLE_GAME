@@ -1,16 +1,17 @@
 package com.example.moviedle;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Optional;
+
 public class HelloController {
     @FXML
     private Label l1,l2,l3,l4,l5,l6,l21,l22,l23,l24,l25,l26,l31,l32,l33,l34,l35,l36,l41,l42,l43,l44,l45,l46,l51,l52,l53,l54,l55,l56;
@@ -24,7 +25,7 @@ public class HelloController {
         dosyaceker = new dosyaceker();
         chosen=dosyaceker.chooser();}
     @FXML
-    protected void onGuessButtonClick() throws IOException {click++;
+    protected void onGuessButtonClick() throws Exception {click++;
         if(click==1){
         entered=dosyaceker.finder(txt.getText());
         h1.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
@@ -78,7 +79,40 @@ public class HelloController {
             alert.setHeaderText("YOU LOOOOOOST");
             alert.setTitle("You Lose");
             alert.setContentText("You Lost This Game"+"\n Movie Name is = >"+dosyaceker.getEleman().get(chosen));
-            alert.show();
+            ButtonType buton_yeniden = new ButtonType("Yeniden Başla");
+            ButtonType buton_kapat = new ButtonType("Kapat");
+            alert.getButtonTypes().setAll(buton_yeniden,buton_kapat);
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.orElse(buton_kapat) == buton_yeniden) {
+
+                Stage stage = (Stage) l5.getScene().getWindow();
+                stage.close();
+                Platform.runLater( () -> {
+                    try {
+                        // Platform.exit();
+                        new HelloApplication().start( new Stage() );
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+                alert.close();
+            }else{
+                Stage stage = (Stage) l5.getScene().getWindow();
+                stage.close();
+                alert.close();
+            }
+           /*
+            Platform.runLater( () -> {
+                try {
+                   // Platform.exit();
+                    new HelloApplication().start( new Stage() );
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });*/
+
+
         }else if((click<=5)&&(entered==chosen))                  //Winning Situation
         {
             Alert alert = new Alert(Alert.AlertType.NONE);
@@ -86,7 +120,29 @@ public class HelloController {
             alert.setTitle("You Won");
             alert.setContentText("You found it!!! Congratulations !!"+"\nIf you Wanna Learn something about this Movie \nThere is the Link ==>"+dosyaceker.getEleman().get(chosen+6));
             alert.setHeaderText("YOU WOOOOOON");
-            alert.show();
+            ButtonType buton_yeniden = new ButtonType("Yeniden Başla");
+            ButtonType buton_kapat = new ButtonType("Kapat");
+            alert.getButtonTypes().setAll(buton_yeniden,buton_kapat);
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.orElse(buton_kapat) == buton_yeniden) {
+
+                Stage stage = (Stage) l5.getScene().getWindow();
+                stage.close();
+                Platform.runLater( () -> {
+                    try {
+                        // Platform.exit();
+                        new HelloApplication().start( new Stage() );
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+                alert.close();
+            }else{
+                Stage stage = (Stage) l5.getScene().getWindow();
+                stage.close();
+                alert.close();
+            }
         }
     }
     public void setgreenn(Label lbl){           // to set labels green

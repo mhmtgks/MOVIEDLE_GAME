@@ -1,5 +1,6 @@
 package com.example.moviedle;
 
+import java.nio.charset.StandardCharsets;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -22,8 +23,10 @@ public class dosyaceker {
                     String[] row= line.split(";");
                     for(String index :row){
                         elemanlar[i]=index;
+                        System.out.println(index);
                         i++;
                     }
+
                 }
             }catch(Exception e){
                 Collections.addAll(eleman,elemanlar);
